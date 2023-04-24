@@ -24,6 +24,11 @@ module.exports = {
         "neutral-focus": "var(--neutral-focus)",
         "neutral-content": "var(--neutral-content)",
 
+        input: "var(--input)",
+        "input-focus": "var(--input-focus)",
+        "input-placeholder": "var(--input-placeholder)",
+        "input-content": "var(--input-content)",
+
         "base-100": "var(--base-100)",
         "base-200": "var(--base-200)",
         "base-300": "var(--base-300)",
@@ -47,6 +52,10 @@ module.exports = {
         "open-sans": ["Open Sans", "sans-serif"],
         lato: ["Lato", "sans-serif"],
         jost: ["Jost", "sans-serif"],
+      },
+
+      backgroundImage: {
+        "form-bg-blob": "url('/blob-double.svg')",
       },
     },
   },

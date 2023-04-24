@@ -16,13 +16,18 @@
   --accent-content: #000000;
 
   --neutral: #0f0229;
-  --neutral-focus: #09011a;
+  --neutral-focus: #0a021c;
   --neutral-content: #343a40;
 
   --base-100: #173264;
   --base-200: #0f244a;
   --base-300: #01060f;
   --base-content: #d5ddeb;
+
+  --input: #ffffff;
+  --input-focus: #09011a;
+  --input-placeholder: #8da1c9;
+  --input-content: #01060f;
 
   --info: #0446ef;
   --info-content: #003cd7;
