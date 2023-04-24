@@ -2,7 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { InputProps } from "#/types";
 
-const TextInput: React.FC<InputProps> = ({ labelText, inputId, ...rest }) => {
+const TextInput = ({
+  labelText,
+  inputId,
+  register,
+  ...rest
+}: InputProps): JSX.Element => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
@@ -24,6 +29,7 @@ const TextInput: React.FC<InputProps> = ({ labelText, inputId, ...rest }) => {
         id={inputId}
         className="h-[40px] rounded-sm bg-input placeholder:text-input-placeholder text-input-content outline-0 px-2 border border-transparent focus:border-accent"
         {...rest}
+        {...register(inputId)}
       />
     </div>
   );

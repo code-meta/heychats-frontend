@@ -1,6 +1,6 @@
 import React from "react";
 
-const ForgotPassword = () => {
+const ForgotPassword = (): JSX.Element => {
   return <div className="text-base-content">forgotpassword</div>;
 };
 

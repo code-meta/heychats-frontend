@@ -6,3 +6,5 @@ export { default as ButtonBase } from "./ButtonBase";
 export { default as ButtonPrimary } from "./ButtonPrimary";
 export { default as ButtonSecondary } from "./ButtonSecondary";
 export { default as Divider } from "./Divider";
+export { default as FormFieldError } from "./FormFieldError";
+export { default as ProfileUploadInput } from "./ProfileUploadInput";

@@ -4,7 +4,7 @@ interface IpropTypes {
   heading: string;
 }
 
-const FormHeading = ({ heading }: IpropTypes) => {
+const FormHeading = ({ heading }: IpropTypes): JSX.Element => {
   return (
     <h2 className="text-base-content font-lato font-bold text-4xl select-none">
       {heading}

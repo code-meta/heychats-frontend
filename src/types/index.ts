@@ -4,6 +4,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
   inputId: string;
+  register?: any;
 }
 
 export interface ButtonProps

@@ -2,7 +2,7 @@ import React from "react";
 import ButtonBase from "./ButtonBase";
 import { ButtonProps } from "#/types";
 
-const ButtonPrimary: React.FC<ButtonProps> = ({ text, ...rest }) => {
+const ButtonPrimary = ({ text, ...rest }: ButtonProps): JSX.Element => {
   return (
     <ButtonBase
       text={text ? text : "Primary"}

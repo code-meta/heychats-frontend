@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const ProductPreview = () => {
+const ProductPreview = (): JSX.Element => {
   return (
     <>
       <h3 className="text-primary font-lato font-semibold text-lg mb-4 select-none">

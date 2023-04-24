@@ -2,6 +2,7 @@ import {
   ButtonPrimary,
   ButtonSecondary,
   Divider,
+  FormFieldError,
   FormHeading,
   PasswordLinkInput,
   ProductPreview,
@@ -9,17 +10,26 @@ import {
 } from "#/components";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { loginSchema } from "#/validation";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+type FormData = z.infer<typeof loginSchema>;
+
+const Login = (): JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(email);
-    console.log(password);
+  const handleLogin = (data: FormData) => {
+    console.log(data);
   };
 
   return (
@@ -27,8 +37,9 @@ const Login = () => {
       {/* form  */}
       <div className="md:flex-1 bg-form-bg-blob min-h-screen bg-no-repeat bg-contain">
         <form
-          className="max-w-[320px] ml-[10%] pt-[10%]"
-          onSubmit={handleLogin}
+          className="sm:max-w-[320px] w-[90%] m-auto sm:ml-[10%] sm:pt-[10%] pt-[5%]"
+          onSubmit={handleSubmit(handleLogin)}
+          noValidate
         >
           <FormHeading heading="Login to my account" />
 
@@ -36,20 +47,26 @@ const Login = () => {
             <TextInput
               type="email"
               inputId="email"
-              value={email}
               labelText="Email"
               placeholder="example@gmail.com"
-              onChange={(e) => setEmail(e.target.value)}
+              register={register}
             />
+
+            {errors.email?.message && (
+              <FormFieldError error={errors.email.message} />
+            )}
 
             <PasswordLinkInput
               type="password"
               inputId="password"
-              value={password}
               labelText="Password"
               placeholder="***********"
-              onChange={(e) => setPassword(e.target.value)}
+              register={register}
             />
+
+            {errors.password?.message && (
+              <FormFieldError error={errors.password.message} />
+            )}
           </div>
 
           <div className="mt-6 flex flex-col gap-3">
@@ -65,7 +82,7 @@ const Login = () => {
       </div>
 
       {/* product preview */}
-      <div className="text-base-content md:flex-1 md:self-center">
+      <div className="text-base-content md:block md:flex-1 md:self-center hidden">
         <ProductPreview />
       </div>
     </section>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Divider = () => {
+const Divider = (): JSX.Element => {
   return (
     <div className="flex items-center gap-2">
       <div className="h-[1px] bg-base-100 flex-1"></div>
