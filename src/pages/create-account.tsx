@@ -16,6 +16,9 @@ import { z } from "zod";
 import { createAccountSchema } from "#/validation";
 import { createUser } from "#/api";
 import { AxiosError } from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "#/features/userInfoSlice";
+import { RootState } from "#/store";
 
 type FormData = z.infer<typeof createAccountSchema>;
 
@@ -26,10 +29,17 @@ interface IFormErrors {
 }
 
 const CreateAccount = (): JSX.Element => {
+  // local states
   const [uploadProfile, setUploadPofile] = useState(false);
   const [profileView, setProfileView] = useState<File | null>(null);
   const [formErrors, setFormErrors] = useState<IFormErrors>({});
   const [processingUser, setProcessingUser] = useState(false);
+
+  // global states
+  const user = useSelector((state: RootState) => state.userInfo);
+
+  // hooks
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -46,7 +56,7 @@ const CreateAccount = (): JSX.Element => {
     setProcessingUser(true);
     try {
       const res = await createUser(data);
-      console.log(res.data.data.user);
+      dispatch(setUser(res.data.data.user));
       setUploadPofile(true);
       setProcessingUser(false);
       setFormErrors({});
@@ -147,7 +157,7 @@ const CreateAccount = (): JSX.Element => {
             onSubmit={handleUploadProfile}
             noValidate
           >
-            <FormHeading heading={`Hey upload your profile`} />
+            <FormHeading heading={`Hey ${user.username} upload your profile`} />
 
             <div className="flex flex-col gap-4 mt-6">
               <ProfileUploadInput
