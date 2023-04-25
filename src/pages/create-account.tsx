@@ -14,12 +14,22 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createAccountSchema } from "#/validation";
+import { createUser } from "#/api";
+import { AxiosError } from "axios";
 
 type FormData = z.infer<typeof createAccountSchema>;
+
+interface IFormErrors {
+  username?: string[];
+  email?: string[];
+  password?: string[];
+}
 
 const CreateAccount = (): JSX.Element => {
   const [uploadProfile, setUploadPofile] = useState(false);
   const [profileView, setProfileView] = useState<File | null>(null);
+  const [formErrors, setFormErrors] = useState<IFormErrors>({});
+  const [processingUser, setProcessingUser] = useState(false);
 
   const {
     register,
@@ -27,12 +37,28 @@ const CreateAccount = (): JSX.Element => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(createAccountSchema),
+    reValidateMode: "onSubmit",
   });
 
   const router = useRouter();
 
   const handleCreateAccount = async (data: FormData) => {
-    console.log(data);
+    setProcessingUser(true);
+    try {
+      const res = await createUser(data);
+      console.log(res.data.data.user);
+      setUploadPofile(true);
+      setProcessingUser(false);
+      setFormErrors({});
+    } catch (error) {
+      setProcessingUser(false);
+
+      const axiosError = error as AxiosError;
+
+      const fields_errors = axiosError.response?.data as {};
+
+      setFormErrors(fields_errors);
+    }
   };
 
   const handleUploadProfile = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,6 +91,10 @@ const CreateAccount = (): JSX.Element => {
                 <FormFieldError error={errors.username.message} />
               )}
 
+              {formErrors?.username && (
+                <FormFieldError error={formErrors?.username[0]} />
+              )}
+
               <TextInput
                 type="email"
                 inputId="email"
@@ -75,6 +105,10 @@ const CreateAccount = (): JSX.Element => {
 
               {errors.email?.message && (
                 <FormFieldError error={errors.email.message} />
+              )}
+
+              {formErrors?.email && (
+                <FormFieldError error={formErrors?.email[0]} />
               )}
 
               <TextInput
@@ -88,10 +122,17 @@ const CreateAccount = (): JSX.Element => {
               {errors.password?.message && (
                 <FormFieldError error={errors.password.message} />
               )}
+
+              {formErrors?.password && (
+                <FormFieldError error={formErrors?.password[0]} />
+              )}
             </div>
 
             <div className="mt-6 flex flex-col gap-3">
-              <ButtonPrimary text="Create my account" type="submit" />
+              <ButtonPrimary
+                text={processingUser ? "Processing..." : "Create my account"}
+                type="submit"
+              />
               <Divider />
               <ButtonSecondary
                 text="Login"

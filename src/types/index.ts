@@ -12,3 +12,9 @@ export interface ButtonProps
   text?: string;
   otherClasses?: string;
 }
+
+export interface NewUser {
+  username: string;
+  email: string;
+  password: string;
+}
