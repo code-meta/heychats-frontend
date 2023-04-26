@@ -14,19 +14,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createAccountSchema } from "#/validation";
-import { createUser } from "#/api";
+import { createUser, uploadUserProfile } from "#/api";
 import { AxiosError } from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "#/features/userInfoSlice";
 import { RootState } from "#/store";
+import { storeToken } from "#/utils";
+import { setToken } from "#/features/tokenSlice";
+import { IFormErrors } from "#/types";
 
 type FormData = z.infer<typeof createAccountSchema>;
-
-interface IFormErrors {
-  username?: string[];
-  email?: string[];
-  password?: string[];
-}
 
 const CreateAccount = (): JSX.Element => {
   // local states
@@ -57,6 +54,10 @@ const CreateAccount = (): JSX.Element => {
     try {
       const res = await createUser(data);
       dispatch(setUser(res.data.data.user));
+
+      storeToken(res.data.data.token);
+      dispatch(setToken(res.data.data.token));
+
       setUploadPofile(true);
       setProcessingUser(false);
       setFormErrors({});
@@ -73,7 +74,20 @@ const CreateAccount = (): JSX.Element => {
 
   const handleUploadProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(profileView);
+    const profileForm = new FormData();
+
+    try {
+      if (profileView) {
+        profileForm.append("profile", profileView);
+      }
+
+      await uploadUserProfile(profileForm);
+
+      router.push("/dashboard");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.log(axiosError.response?.data);
+    }
   };
 
   return (
@@ -168,7 +182,11 @@ const CreateAccount = (): JSX.Element => {
 
             <div className="mt-6 flex flex-col gap-3">
               <ButtonPrimary text="Save Profile" type="submit" />
-              <ButtonSecondary text="Skip for now" type="button" />
+              <ButtonSecondary
+                text="Skip for now"
+                type="button"
+                onClick={() => router.push("/dashboard")}
+              />
             </div>
           </form>
         )}

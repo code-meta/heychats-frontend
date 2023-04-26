@@ -16,7 +16,7 @@ const ProfileUploadInput = ({ profileView, setProfileView }: IProptypes) => {
   return (
     <div>
       <label htmlFor="profile">
-        <div className="w-[68px] h-[68px] bg-neutral rounded-full flex items-center justify-center m-auto">
+        <div className="w-[68px] h-[68px] bg-neutral rounded-full flex items-center justify-center m-auto cursor-pointer">
           <Image
             src={
               profileView
@@ -38,6 +38,7 @@ const ProfileUploadInput = ({ profileView, setProfileView }: IProptypes) => {
         accept="image/*"
         className="hidden"
         onChange={handleProfilePreview}
+        name="profile"
       />
     </div>
   );
