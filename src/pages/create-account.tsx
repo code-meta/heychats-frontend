@@ -64,11 +64,7 @@ const CreateAccount = (): JSX.Element => {
       setFormErrors({});
     } catch (error) {
       setProcessingUser(false);
-
-      const axiosError = error as AxiosError;
-
-      const fields_errors = axiosError.response?.data as {};
-
+      const fields_errors = (error as AxiosError).response?.data as {};
       setFormErrors(fields_errors);
     }
   };
@@ -85,8 +81,7 @@ const CreateAccount = (): JSX.Element => {
         router.push("/dashboard");
       }
     } catch (error) {
-      const axiosError = error as AxiosError;
-      console.log(axiosError.response?.data);
+      console.log((error as AxiosError).response?.data);
     }
   };
 

@@ -19,8 +19,14 @@ export interface NewUser {
   password: string;
 }
 
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
 export interface IFormErrors {
   username?: string[];
   email?: string[];
   password?: string[];
+  non_field_errors?: string[];
 }

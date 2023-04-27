@@ -15,22 +15,49 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { loginSchema } from "#/validation";
 import { withOutAuth } from "#/services";
+import { IFormErrors } from "#/types";
+import { loginUser } from "#/api";
+import { AxiosError } from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "#/store";
+import { setUser } from "#/features/userInfoSlice";
+import { storeToken } from "#/utils";
+import { setToken } from "#/features/tokenSlice";
 
 type FormData = z.infer<typeof loginSchema>;
 
 const Login = (): JSX.Element => {
+  // local states
+  const [formErrors, setFormErrors] = useState<IFormErrors>({});
+
+  // hooks
+
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
+    reValidateMode: "onSubmit",
   });
 
   const router = useRouter();
 
-  const handleLogin = (data: FormData) => {
-    console.log(data);
+  const handleLogin = async (data: FormData) => {
+    try {
+      const res = await loginUser(data);
+      dispatch(setUser(res.data.data.user));
+
+      storeToken(res.data.data.token);
+      dispatch(setToken(res.data.data.token));
+
+      router.push("/dashboard");
+    } catch (error) {
+      const fields_errors = (error as AxiosError).response?.data as {};
+      setFormErrors(fields_errors);
+    }
   };
 
   return (
@@ -57,6 +84,10 @@ const Login = (): JSX.Element => {
               <FormFieldError error={errors.email.message} />
             )}
 
+            {formErrors?.email && (
+              <FormFieldError error={formErrors?.email[0]} />
+            )}
+
             <PasswordLinkInput
               type="password"
               inputId="password"
@@ -67,6 +98,14 @@ const Login = (): JSX.Element => {
 
             {errors.password?.message && (
               <FormFieldError error={errors.password.message} />
+            )}
+
+            {formErrors?.password && (
+              <FormFieldError error={formErrors?.password[0]} />
+            )}
+
+            {formErrors?.non_field_errors && (
+              <FormFieldError error={formErrors?.non_field_errors[0]} />
             )}
           </div>
 
