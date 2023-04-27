@@ -19,7 +19,7 @@ const TextInput = ({
         </label>
 
         <Link
-          href="/forgot-password"
+          href="./forgot-password"
           className="text-primary font-open-sans font-medium text-base select-none"
         >
           Forgot Password?

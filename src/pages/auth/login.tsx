@@ -53,7 +53,7 @@ const Login = (): JSX.Element => {
       storeToken(res.data.data.token);
       dispatch(setToken(res.data.data.token));
 
-      router.push("/dashboard");
+      router.push("/");
     } catch (error) {
       const fields_errors = (error as AxiosError).response?.data as {};
       setFormErrors(fields_errors);
@@ -115,7 +115,7 @@ const Login = (): JSX.Element => {
             <ButtonSecondary
               text="Create an account"
               type="button"
-              onClick={() => router.push("/create-account")}
+              onClick={() => router.push("./create-account")}
             />
           </div>
         </form>

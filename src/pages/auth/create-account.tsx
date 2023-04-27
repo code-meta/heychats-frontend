@@ -78,7 +78,7 @@ const CreateAccount = (): JSX.Element => {
         profileForm.append("profile", profileView);
         await uploadUserProfile(profileForm);
 
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (error) {
       console.log((error as AxiosError).response?.data);
@@ -156,7 +156,7 @@ const CreateAccount = (): JSX.Element => {
               <ButtonSecondary
                 text="Login"
                 type="button"
-                onClick={() => router.push("/login")}
+                onClick={() => router.push("./login")}
               />
             </div>
           </form>

@@ -1,11 +1,27 @@
-import Image from "next/image";
+import { ButtonPrimary } from "#/components";
+import { withAuth } from "#/services";
+import { removeToken } from "#/services/token";
+import { RootState } from "#/store";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const Home = (): JSX.Element => {
+const Dashboard = () => {
+  const token = useSelector((state: RootState) => state.token);
+
+  useEffect(() => {
+    console.log("hi");
+    console.log(token.access);
+    console.log(token.refresh);
+  }, [token]);
+
   return (
-    <div>
-      <h1 className="bg-primary text-content font-jost">this is cool</h1>
+    <div className="text-base-content">
+      <p>Dashboard</p>
+      <div className="w-[100px]">
+        <ButtonPrimary text="Logout" onClick={() => removeToken()} />
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default withAuth(Dashboard);

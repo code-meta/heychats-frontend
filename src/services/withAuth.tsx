@@ -14,7 +14,7 @@ const withAuth = <P extends object>(WrappedComponent: NextComponentType<P>) => {
     useEffect(() => {
       const { access, refresh } = getToken();
 
-      if (!access) router.push("/login");
+      if (!access) router.push("/auth/login");
 
       if (access) {
         dispatch(setToken({ access, refresh }));

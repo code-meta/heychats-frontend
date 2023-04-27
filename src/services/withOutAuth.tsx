@@ -13,14 +13,14 @@ const withOutAuth = <P extends object>(
     useEffect(() => {
       const { access, refresh } = getToken();
 
-      if (access) router.push("/dashboard");
+      if (access) router.push("/");
 
       if (!access) {
         setLoading(false);
       }
 
       return () => {
-        console.log("Unmountedxx");
+        console.log("Unmounted");
       };
     }, []);
 
