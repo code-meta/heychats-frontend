@@ -80,11 +80,10 @@ const CreateAccount = (): JSX.Element => {
     try {
       if (profileView) {
         profileForm.append("profile", profileView);
+        await uploadUserProfile(profileForm);
+
+        router.push("/dashboard");
       }
-
-      await uploadUserProfile(profileForm);
-
-      router.push("/dashboard");
     } catch (error) {
       const axiosError = error as AxiosError;
       console.log(axiosError.response?.data);
