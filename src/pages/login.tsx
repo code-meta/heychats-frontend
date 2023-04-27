@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { loginSchema } from "#/validation";
+import { withOutAuth } from "#/services";
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -89,4 +90,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default withOutAuth(Login);
