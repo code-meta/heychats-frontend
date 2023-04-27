@@ -21,8 +21,8 @@ import { AxiosError } from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "#/store";
 import { setUser } from "#/features/userInfoSlice";
-import { storeToken } from "#/utils";
 import { setToken } from "#/features/tokenSlice";
+import { storeToken } from "#/services/token";
 
 type FormData = z.infer<typeof loginSchema>;
 

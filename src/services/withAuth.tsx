@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { NextComponentType } from "next";
-import { getToken } from "#/utils";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { setToken } from "#/features/tokenSlice";
+import { getToken } from "./token";
 
 const withAuth = <P extends object>(WrappedComponent: NextComponentType<P>) => {
   return (props: P) => {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+    const dispatch = useDispatch();
 
     useEffect(() => {
       const { access, refresh } = getToken();
@@ -14,6 +17,7 @@ const withAuth = <P extends object>(WrappedComponent: NextComponentType<P>) => {
       if (!access) router.push("/login");
 
       if (access) {
+        dispatch(setToken({ access, refresh }));
         setLoading(false);
       }
 

@@ -1,7 +1,4 @@
-interface ITokenTypes {
-  refresh: string;
-  access: string;
-}
+import { ITokenTypes } from "#/types";
 
 export const storeToken = (tokens: ITokenTypes) => {
   localStorage.setItem("access", tokens.access);

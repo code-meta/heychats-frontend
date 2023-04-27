@@ -19,10 +19,10 @@ import { AxiosError } from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "#/features/userInfoSlice";
 import { RootState } from "#/store";
-import { storeToken } from "#/utils";
 import { setToken } from "#/features/tokenSlice";
 import { IFormErrors } from "#/types";
 import { withOutAuth } from "#/services";
+import { storeToken } from "#/services/token";
 
 type FormData = z.infer<typeof createAccountSchema>;
 

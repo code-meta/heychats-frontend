@@ -30,3 +30,8 @@ export interface IFormErrors {
   password?: string[];
   non_field_errors?: string[];
 }
+
+export interface ITokenTypes {
+  refresh: string;
+  access: string;
+}

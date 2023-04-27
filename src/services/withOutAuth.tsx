@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NextComponentType } from "next";
-import { getToken } from "#/utils";
 import { useRouter } from "next/router";
+import { getToken } from "./token";
 
 const withOutAuth = <P extends object>(
   WrappedComponent: NextComponentType<P>
