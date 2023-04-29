@@ -1,16 +1,19 @@
 import { API_URL } from "#/config";
-import { getToken, storeToken } from "#/services/token";
+import { getToken, removeToken, storeToken } from "#/services/token";
 import { ILoginUser, NewUser } from "#/types";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
+// ! this api instance is for public routes without authentication
 const api_public = axios.create({
   baseURL: `${API_URL}`,
 });
 
+// ! this api instance is for private routes with authentication
 export const api_private = axios.create({
   baseURL: `${API_URL}`,
 });
 
+// ! interceptors to get new access and refresh token using refresh token
 api_private.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -42,6 +45,7 @@ api_private.interceptors.response.use(
         return api_private.request(originalRequest);
       } catch (error) {
         if ((error as AxiosError).response?.status === 401) {
+          removeToken();
           return Promise.reject(error);
         }
       }
@@ -51,10 +55,12 @@ api_private.interceptors.response.use(
   }
 );
 
+// ! cerate new user
 export const createUser = async (data: NewUser): Promise<AxiosResponse> => {
   return await api_public.post("/auth/create-account/", data);
 };
 
+// ! upload a profile picture for an user
 export const uploadUserProfile = async (
   data: unknown
 ): Promise<AxiosResponse> => {
@@ -67,10 +73,12 @@ export const uploadUserProfile = async (
   return res;
 };
 
+// ! authenticate the user and send jwt tokens to login
 export const loginUser = async (data: ILoginUser): Promise<AxiosResponse> => {
   return await api_public.post("/auth/login/", data);
 };
 
+// ! it gives basic informations for an authenticate user
 export const getUserInfo = async (): Promise<AxiosResponse> => {
   return await api_private.get("/auth/user-info/", {
     headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
