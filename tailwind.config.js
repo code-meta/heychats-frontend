@@ -29,6 +29,11 @@ module.exports = {
         "input-placeholder": "var(--input-placeholder)",
         "input-content": "var(--input-content)",
 
+        "input-search": "var(--input-search)",
+        "input-search-focus": "var(--input-search-focus)",
+        "input-search-placeholder": "var(--input-search-placeholder)",
+        "input-search-content": "var(--input-search-content)",
+
         "base-100": "var(--base-100)",
         "base-200": "var(--base-200)",
         "base-300": "var(--base-300)",

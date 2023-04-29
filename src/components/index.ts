@@ -8,3 +8,6 @@ export { default as ButtonSecondary } from "./ButtonSecondary";
 export { default as Divider } from "./Divider";
 export { default as FormFieldError } from "./FormFieldError";
 export { default as ProfileUploadInput } from "./ProfileUploadInput";
+export { default as PrimaryHeader } from "./PrimaryHeader";
+export { default as PrimaryLogo } from "./PrimaryLogo";
+export { default as TextInputSearch } from "./TextInputSearch";

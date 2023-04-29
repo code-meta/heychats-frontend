@@ -29,6 +29,11 @@
   --input-placeholder: #8da1c9;
   --input-content: #01060f;
 
+  --input-search: #0f0229;
+  --input-search-focus: #09011a;
+  --input-search-placeholder: #8da1c9;
+  --input-search-content: #fff;
+
   --info: #0446ef;
   --info-content: #003cd7;
 
@@ -44,4 +49,12 @@
 
 body {
   background-color: var(--base-300);
+}
+
+.link-hover:hover svg {
+  color: var(--secondary);
+}
+
+.link-hover:hover span {
+  color: var(--primary);
 }
