@@ -1,6 +1,6 @@
 import { API_URL } from "#/config";
 import { getToken, removeToken, storeToken } from "#/services/token";
-import { ILoginUser, NewUser } from "#/types";
+import { ILoginUser, Iconnection, NewUser } from "#/types";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 // ! this api instance is for public routes without authentication
@@ -81,6 +81,15 @@ export const loginUser = async (data: ILoginUser): Promise<AxiosResponse> => {
 // ! it gives basic informations for an authenticate user
 export const getUserInfo = async (): Promise<AxiosResponse> => {
   return await api_private.get("/auth/user-info/", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+  });
+};
+
+// ! this handler finds connection to create new chat
+export const findConnection = async (
+  data: Iconnection
+): Promise<AxiosResponse> => {
+  return await api_private.post("/chat/find-chat-connection/", data, {
     headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
   });
 };

@@ -28,7 +28,6 @@ const withAuth = <P extends object>(WrappedComponent: NextComponentType<P>) => {
             try {
               const res = await getUserInfo();
               dispatch(setUser(res.data.data.user));
-              console.log(res.data);
             } catch (error) {
               console.log((error as AxiosError).response?.data);
             }
@@ -38,7 +37,6 @@ const withAuth = <P extends object>(WrappedComponent: NextComponentType<P>) => {
         }
 
         return () => {
-          console.log("Unmounted");
           mounted.current = false;
         };
       }

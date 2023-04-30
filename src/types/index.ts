@@ -35,3 +35,13 @@ export interface ITokenTypes {
   refresh: string;
   access: string;
 }
+
+export interface Iconnection {
+  connection_id: string;
+}
+
+export interface IconnectionData {
+  id: string;
+  username: string;
+  profile: string;
+}

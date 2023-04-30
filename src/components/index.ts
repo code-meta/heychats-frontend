@@ -11,3 +11,4 @@ export { default as ProfileUploadInput } from "./ProfileUploadInput";
 export { default as PrimaryHeader } from "./PrimaryHeader";
 export { default as PrimaryLogo } from "./PrimaryLogo";
 export { default as TextInputSearch } from "./TextInputSearch";
+export { default as ButtonPrimarySmall } from "./ButtonPrimarySmall";
