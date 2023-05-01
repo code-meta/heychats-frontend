@@ -12,3 +12,4 @@ export { default as PrimaryHeader } from "./PrimaryHeader";
 export { default as PrimaryLogo } from "./PrimaryLogo";
 export { default as TextInputSearch } from "./TextInputSearch";
 export { default as ButtonPrimarySmall } from "./ButtonPrimarySmall";
+export { default as ButtonSuccessSmall } from "./ButtonSuccessSmall";

@@ -40,6 +40,10 @@ export interface Iconnection {
   connection_id: string;
 }
 
+export interface ICreateConnection {
+  user2_id: string;
+}
+
 export interface IconnectionData {
   id: string;
   username: string;

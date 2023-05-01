@@ -1,6 +1,6 @@
 import { API_URL } from "#/config";
 import { getToken, removeToken, storeToken } from "#/services/token";
-import { ILoginUser, Iconnection, NewUser } from "#/types";
+import { ICreateConnection, ILoginUser, Iconnection, NewUser } from "#/types";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 // ! this api instance is for public routes without authentication
@@ -90,6 +90,15 @@ export const findConnection = async (
   data: Iconnection
 ): Promise<AxiosResponse> => {
   return await api_private.post("/chat/find-chat-connection/", data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+  });
+};
+
+// ! this handler finds connection to create new chat
+export const createConnection = async (
+  data: ICreateConnection
+): Promise<AxiosResponse> => {
+  return await api_private.post("/chat/create-connection/", data, {
     headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
   });
 };

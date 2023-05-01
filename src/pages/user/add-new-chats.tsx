@@ -1,7 +1,8 @@
-import { findConnection } from "#/api";
+import { createConnection, findConnection } from "#/api";
 import {
   ButtonPrimary,
   ButtonPrimarySmall,
+  ButtonSuccessSmall,
   PrimaryHeader,
   TextInputSearch,
 } from "#/components";
@@ -14,9 +15,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const AddNewChats = () => {
-  const [searchId, setSearchId] = useState("9977854279");
+  const [searchId, setSearchId] = useState("");
   const [idError, setIdError] = useState<string | null>(null);
   const [connection, setConnection] = useState<IconnectionData | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   const handleFindConnection = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,9 +27,12 @@ const AddNewChats = () => {
     try {
       const res = await findConnection({ connection_id: searchId });
       setConnection(res.data.data.connection);
+      setIsConnected(res.data.data.connected);
       setIdError(null);
     } catch (error) {
       setConnection(null);
+      setIsConnected(false);
+
       const status = (error as AxiosError).response?.status;
       if (status === 404 || status === 422) {
         const errors = (error as AxiosError).response?.data as {
@@ -36,6 +41,20 @@ const AddNewChats = () => {
 
         setIdError(errors.error.message);
       }
+    }
+  };
+
+  const handleCreateConnection = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    try {
+      if (connection) {
+        const res = await createConnection({ user2_id: connection.id });
+        console.log(res.data);
+        setIsConnected(true);
+      }
+    } catch (error) {
+      console.log((error as AxiosError).response?.data);
     }
   };
 
@@ -50,6 +69,7 @@ const AddNewChats = () => {
         <form
           className="max-w-[500px] w-[95%] mx-auto mt-[3rem]"
           onSubmit={handleFindConnection}
+          autoComplete="off"
         >
           <TextInputSearch
             inputId="search"
@@ -62,16 +82,17 @@ const AddNewChats = () => {
         {idError && (
           <p className="text-error-content text-center mt-[3rem]">{idError}</p>
         )}
- 
+
         {connection && (
           <div className="flex items-center justify-between max-w-[500px] w-[95%] bg-neutral px-4 py-3 roudned-[6px] mx-auto mt-[3rem]">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {connection.profile ? (
                 <Image
                   src={`${IMAGE_URL}${connection.profile}`}
                   alt="profile-pic"
                   width={46}
                   height={46}
+                  className="rounded-full w-[46px] h-[46px] object-cover"
                 />
               ) : (
                 <div className="rounded-full w-[46px] h-[46px] p-1 bg-base-100 flex items-center justify-center">
@@ -85,7 +106,16 @@ const AddNewChats = () => {
                 {connection.username}
               </h4>
             </div>
-            <ButtonPrimarySmall text="Connect" />
+            <div>
+              {!isConnected ? (
+                <ButtonPrimarySmall
+                  text="Connect"
+                  onClick={handleCreateConnection}
+                />
+              ) : (
+                <ButtonSuccessSmall text="Connected" />
+              )}
+            </div>
           </div>
         )}
       </main>
