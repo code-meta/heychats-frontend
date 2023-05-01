@@ -102,3 +102,10 @@ export const createConnection = async (
     headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
   });
 };
+
+// ! this handler finds connection to create new chat
+export const allChats = async (): Promise<AxiosResponse> => {
+  return await api_private.get("/chat/all-chats/", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+  });
+};

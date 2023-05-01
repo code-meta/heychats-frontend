@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { setToken } from "#/features/tokenSlice";
 import { getToken } from "./token";
-import { getUserInfo } from "#/api";
+import { allChats, getUserInfo } from "#/api";
 import { setUser } from "#/features/userInfoSlice";
 import { AxiosError } from "axios";
 

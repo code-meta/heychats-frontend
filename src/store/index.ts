@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userInfoSlice, tokenSlice } from "#/features";
+import { userInfoSlice, tokenSlice, chatsSlice } from "#/features";
 
 export const store = configureStore({
   reducer: {
     userInfo: userInfoSlice,
     token: tokenSlice,
+    chats: chatsSlice,
   },
 });
 
