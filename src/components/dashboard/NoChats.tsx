@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import PrimaryHeader from "./PrimaryHeader";
+import { PrimaryHeader } from "../index";
 
 const NoChats = () => {
   return (

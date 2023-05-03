@@ -75,7 +75,9 @@ const AddNewChats = () => {
             inputId="search"
             placeholder="Enter Your friend’s Connection Id"
             value={searchId}
-            onChange={(e) => setSearchId(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchId(e.target.value)
+            }
           />
         </form>
 
