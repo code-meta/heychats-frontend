@@ -6,7 +6,7 @@ import {
   PrimaryHeader,
   TextInputMessage,
 } from "#/components";
-import { IMAGE_URL } from "#/config";
+import { IMAGE_URL, WS_URL } from "#/config";
 import { setChats } from "#/features/chatsSlice";
 import { withAuth } from "#/services";
 import { removeToken } from "#/services/token";
@@ -60,9 +60,7 @@ const Dashboard = () => {
     e: React.MouseEvent<HTMLDivElement>,
     room_id: string
   ) => {
-    const socket = new WebSocket(
-      `ws://127.0.0.1:8000/ws/chat/${user.id}/${room_id}/`
-    );
+    const socket = new WebSocket(`${WS_URL}/chat/${user.id}/${room_id}/`);
     setWs(socket);
     setOPEN(true);
     setRoomId(room_id);
@@ -114,9 +112,7 @@ const Dashboard = () => {
     }
 
     if (!ws || ws.readyState !== 1) {
-      const socket = new WebSocket(
-        `ws://127.0.0.1:8000/ws/chat/${user.id}/${room_id}/`
-      );
+      const socket = new WebSocket(`${WS_URL}/chat/${user.id}/${room_id}/`);
       setWs(socket);
 
       socket.addEventListener("open", (e) => {
