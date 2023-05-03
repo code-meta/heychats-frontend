@@ -2,8 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "#/store";
-import { API_URL, IMAGE_URL } from "#/config";
-import path from "path";
+import { IMAGE_URL } from "#/config";
 
 const TopHeaderProfile = () => {
   const user = useSelector((state: RootState) => state.userInfo);

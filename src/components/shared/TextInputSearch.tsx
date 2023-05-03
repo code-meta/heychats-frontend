@@ -1,6 +1,6 @@
 import React from "react";
-import { InputProps } from "../types/index";
 import SearchIcon from "@mui/icons-material/Search";
+import { InputProps } from "#/types";
 
 const TextInputSearch = ({
   labelText,

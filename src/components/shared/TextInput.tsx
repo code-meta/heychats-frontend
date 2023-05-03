@@ -1,5 +1,5 @@
+import { InputProps } from "#/types";
 import React from "react";
-import { InputProps } from "../types/index";
 
 const TextInput = ({
   labelText,

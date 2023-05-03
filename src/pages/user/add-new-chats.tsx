@@ -1,6 +1,5 @@
 import { createConnection, findConnection } from "#/api";
 import {
-  ButtonPrimary,
   ButtonPrimarySmall,
   ButtonSuccessSmall,
   PrimaryHeader,

@@ -1,7 +1,7 @@
 import React from "react";
-import { InputProps } from "../types/index";
 import InsertEmoticonOutlinedIcon from "@mui/icons-material/InsertEmoticonOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import { InputProps } from "#/types";
 
 const TextInputMessage = ({
   labelText,

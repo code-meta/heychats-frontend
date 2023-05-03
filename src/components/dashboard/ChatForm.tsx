@@ -25,7 +25,9 @@ const ChatForm = ({
             inputId="message"
             placeholder="Message..."
             value={textMessage}
-            onChange={(e) => setTextMessage(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTextMessage(e.target.value)
+            }
             autoFocus
           />
         </form>
