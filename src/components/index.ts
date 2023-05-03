@@ -16,3 +16,7 @@ export { default as ButtonSuccessSmall } from "./ButtonSuccessSmall";
 export { default as NoChats } from "./NoChats";
 export { default as ChatCard } from "./ChatCard";
 export { default as TextInputMessage } from "./TextInputMessage";
+export { default as BrandMessage } from "./BrandMessage";
+export { default as ChatBoard } from "./ChatBoard";
+export { default as TextMessageCard } from "./TextMessageCard";
+export { default as ChatForm } from "./ChatForm";
