@@ -1,30 +1,28 @@
-import { allChats, allMessages, getUserInfo } from "#/api";
 import {
-  ButtonPrimary,
   ChatCard,
   NoChats,
   PrimaryHeader,
   TextInputMessage,
 } from "#/components";
-import { IMAGE_URL, WS_URL } from "#/config";
-import { setChats } from "#/features/chatsSlice";
 import { withAuth } from "#/services";
-import { removeToken } from "#/services/token";
 import { RootState } from "#/store";
 import { IMessage } from "#/types";
-import { AxiosError } from "axios";
 import Head from "next/head";
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import moment from "moment";
+import {
+  useGetChats,
+  useHandleChatRoom,
+  useScrollToBottom,
+  useWsListeners,
+} from "#/hooks";
+import useHandleSendMessage from "#/hooks/useHandleSendMessage";
 
 const Dashboard = () => {
   // states
   const user = useSelector((state: RootState) => state.userInfo);
   const chats = useSelector((state: RootState) => state.chats.chats);
-
-  const [noChats, setNoChats] = useState(false);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [room_id, setRoomId] = useState<string | null>(null);
   const [OPEN, setOPEN] = useState(false);
@@ -32,97 +30,29 @@ const Dashboard = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
 
   // hooks
-  const mounted = useRef(true);
-  const dispatch = useDispatch();
   const chatBox = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (mounted.current) {
-      (async () => {
-        try {
-          const res = await allChats();
-          dispatch(setChats(res.data.data.chats));
-          setNoChats(false);
-        } catch (error) {
-          if ((error as AxiosError).response?.status === 404) {
-            setNoChats(true);
-          }
-        }
-      })();
-    }
+  const [noChats] = useGetChats();
 
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
+  useWsListeners({ ws, setMessages });
 
-  const handleChatRoom = async (
-    e: React.MouseEvent<HTMLDivElement>,
-    room_id: string
-  ) => {
-    const socket = new WebSocket(`${WS_URL}/chat/${user.id}/${room_id}/`);
-    setWs(socket);
-    setOPEN(true);
-    setRoomId(room_id);
+  useScrollToBottom({ element: chatBox, messages });
 
-    if (ws) {
-      ws.close();
-    }
+  const [handleChatRoom] = useHandleChatRoom({
+    ws,
+    setWs,
+    setMessages,
+    setOPEN,
+    setRoomId,
+  });
 
-    try {
-      const res = await allMessages({ room_id });
-      setMessages(res.data.data.messages);
-    } catch (error) {
-      setMessages([]);
-      console.log((error as AxiosError).response?.data);
-    }
-  };
-
-  useEffect(() => {
-    if (ws) {
-      ws.addEventListener("open", (e) => {
-        console.log("ws connected..");
-      });
-
-      ws.addEventListener("close", (e) => {
-        console.log("ws disconnected..");
-      });
-
-      ws.addEventListener("message", (e) => {
-        const data = JSON.parse(e.data).message_content;
-        setMessages((prev) => [...prev, data]);
-      });
-    }
-  }, [ws]);
-
-  useEffect(() => {
-    if (chatBox.current) {
-      chatBox.current.scrollTop = chatBox.current.scrollHeight;
-    }
-  }, [messages]);
-
-  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (textMessage.trim() === "") return;
-
-    if (ws && ws.readyState === 1) {
-      ws.send(JSON.stringify({ message: textMessage }));
-      setTextMessage("");
-    }
-
-    if (!ws || ws.readyState !== 1) {
-      const socket = new WebSocket(`${WS_URL}/chat/${user.id}/${room_id}/`);
-      setWs(socket);
-
-      socket.addEventListener("open", (e) => {
-        if (socket.readyState === 1) {
-          socket.send(JSON.stringify({ message: textMessage }));
-          setTextMessage("");
-        }
-      });
-    }
-  };
+  const [handleSendMessage] = useHandleSendMessage({
+    ws,
+    setWs,
+    textMessage,
+    setTextMessage,
+    room_id,
+  });
 
   if (noChats) return <NoChats />;
 
