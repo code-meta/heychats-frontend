@@ -150,6 +150,7 @@ const Dashboard = () => {
                     {...connection}
                     key={connection.room_id}
                     handler={handleChatRoom}
+                    activeRoom={room_id}
                   />
                 ))}
               </div>

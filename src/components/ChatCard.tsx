@@ -6,6 +6,7 @@ interface IPropTypes {
   username: string;
   profile: string | null;
   room_id: string;
+  activeRoom: string | null;
   handler: Function;
 }
 
@@ -13,11 +14,14 @@ const ChatCard = ({
   profile,
   username,
   room_id,
+  activeRoom,
   handler,
 }: IPropTypes): JSX.Element => {
   return (
     <div
-      className="py-2 hover:bg-neutral px-[1rem] select-none"
+      className={`py-2 hover:bg-neutral px-[1rem] select-none ${
+        room_id === activeRoom && "bg-neutral"
+      }`}
       onClick={(e) => handler(e, room_id)}
     >
       <div className="flex items-center gap-4">
