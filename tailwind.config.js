@@ -34,6 +34,15 @@ module.exports = {
         "input-search-placeholder": "var(--input-search-placeholder)",
         "input-search-content": "var(--input-search-content)",
 
+        "input-message": "var(--input-message)",
+        "input-message-focus": "var(--input-message-focus)",
+        "input-message-placeholder": "var(--input-message-placeholder)",
+        "input-message-content": "var(--input-message-content)",
+
+        "card-message": "var(--card-message)",
+        "card-message-info": "var(--card-message-info)",
+        "card-message-content": "var(--card-message-content)",
+
         "base-100": "var(--base-100)",
         "base-200": "var(--base-200)",
         "base-300": "var(--base-300)",

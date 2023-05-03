@@ -34,6 +34,15 @@
   --input-search-placeholder: #8da1c9;
   --input-search-content: #fff;
 
+  --input-message: #0f0229;
+  --input-message-focus: #0050e3;
+  --input-message-placeholder: #8da1c9;
+  --input-message-content: #ffffff;
+
+  --card-message: #212529;
+  --card-message-info: #686e75;
+  --card-message-content: #ffffff;
+
   --info: #0446ef;
   --info-content: #003cd7;
 
@@ -57,4 +66,21 @@ body {
 
 .link-hover:hover span {
   color: var(--primary);
+}
+
+.chat_room {
+  scroll-behavior: smooth;
+}
+
+.chat_room::-webkit-scrollbar {
+  display: block;
+  width: 5px;
+}
+
+.chat_room::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.chat_room::-webkit-scrollbar-thumb {
+  background-color: var(--base-200);
 }

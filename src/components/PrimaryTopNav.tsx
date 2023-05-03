@@ -6,7 +6,7 @@ import React from "react";
 const PrimaryTopNav = () => {
   const router = useRouter();
   return (
-    <nav>
+    <nav className="ml-[62px]">
       <ul className="flex list-none gap-10">
         {topNavLinks.map(({ Icon, link, text }) => (
           <li key={link}>

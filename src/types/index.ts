@@ -49,3 +49,15 @@ export interface IconnectionData {
   username: string;
   profile: string;
 }
+
+export interface IGetMessages {
+  room_id: string;
+}
+
+export interface IMessage {
+  id: string;
+  sender: string;
+  message: string;
+  room_id: number;
+  created_at: string;
+}

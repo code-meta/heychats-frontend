@@ -1,6 +1,12 @@
 import { API_URL } from "#/config";
 import { getToken, removeToken, storeToken } from "#/services/token";
-import { ICreateConnection, ILoginUser, Iconnection, NewUser } from "#/types";
+import {
+  ICreateConnection,
+  IGetMessages,
+  ILoginUser,
+  Iconnection,
+  NewUser,
+} from "#/types";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 // ! this api instance is for public routes without authentication
@@ -106,6 +112,15 @@ export const createConnection = async (
 // ! this handler finds connection to create new chat
 export const allChats = async (): Promise<AxiosResponse> => {
   return await api_private.get("/chat/all-chats/", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+  });
+};
+
+// ! this handler finds connection to create new chat
+export const allMessages = async (
+  data: IGetMessages
+): Promise<AxiosResponse> => {
+  return await api_private.post("/chat/all-messages/", data, {
     headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
   });
 };

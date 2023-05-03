@@ -15,3 +15,4 @@ export { default as ButtonPrimarySmall } from "./ButtonPrimarySmall";
 export { default as ButtonSuccessSmall } from "./ButtonSuccessSmall";
 export { default as NoChats } from "./NoChats";
 export { default as ChatCard } from "./ChatCard";
+export { default as TextInputMessage } from "./TextInputMessage";
