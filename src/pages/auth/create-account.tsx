@@ -14,15 +14,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createAccountSchema } from "#/validation";
-import { createUser, uploadUserProfile } from "#/api";
-import { AxiosError } from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "#/features/userInfoSlice";
+import { useSelector } from "react-redux";
 import { RootState } from "#/store";
-import { setToken } from "#/features/tokenSlice";
 import { IFormErrors } from "#/types";
 import { withOutAuth } from "#/services";
-import { storeToken } from "#/services/token";
+import { useHandleCreateAccount, useHandleUploadProfile } from "#/hooks";
 
 type FormData = z.infer<typeof createAccountSchema>;
 
@@ -37,7 +33,13 @@ const CreateAccount = (): JSX.Element => {
   const user = useSelector((state: RootState) => state.userInfo);
 
   // hooks
-  const dispatch = useDispatch();
+  const [handleCreateAccount] = useHandleCreateAccount({
+    setFormErrors,
+    setProcessingUser,
+    setUploadPofile,
+  });
+
+  const [handleUploadProfile] = useHandleUploadProfile({ profileView });
 
   const {
     register,
@@ -49,41 +51,6 @@ const CreateAccount = (): JSX.Element => {
   });
 
   const router = useRouter();
-
-  const handleCreateAccount = async (data: FormData) => {
-    setProcessingUser(true);
-    try {
-      const res = await createUser(data);
-      dispatch(setUser(res.data.data.user));
-
-      storeToken(res.data.data.token);
-      dispatch(setToken(res.data.data.token));
-
-      setUploadPofile(true);
-      setProcessingUser(false);
-      setFormErrors({});
-    } catch (error) {
-      setProcessingUser(false);
-      const fields_errors = (error as AxiosError).response?.data as {};
-      setFormErrors(fields_errors);
-    }
-  };
-
-  const handleUploadProfile = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const profileForm = new FormData();
-
-    try {
-      if (profileView) {
-        profileForm.append("profile", profileView);
-        await uploadUserProfile(profileForm);
-
-        router.push("/");
-      }
-    } catch (error) {
-      console.log((error as AxiosError).response?.data);
-    }
-  };
 
   return (
     <section className="md:flex">

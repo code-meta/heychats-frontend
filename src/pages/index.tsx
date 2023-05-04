@@ -17,8 +17,8 @@ import {
   useHandleChatRoom,
   useScrollToBottom,
   useWsListeners,
+  useHandleSendMessage,
 } from "#/hooks";
-import useHandleSendMessage from "#/hooks/useHandleSendMessage";
 
 const Dashboard = () => {
   // states

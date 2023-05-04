@@ -16,13 +16,7 @@ import { z } from "zod";
 import { loginSchema } from "#/validation";
 import { withOutAuth } from "#/services";
 import { IFormErrors } from "#/types";
-import { loginUser } from "#/api";
-import { AxiosError } from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "#/store";
-import { setUser } from "#/features/userInfoSlice";
-import { setToken } from "#/features/tokenSlice";
-import { storeToken } from "#/services/token";
+import { useHandleLogin } from "#/hooks";
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -31,9 +25,6 @@ const Login = (): JSX.Element => {
   const [formErrors, setFormErrors] = useState<IFormErrors>({});
 
   // hooks
-
-  const dispatch = useDispatch();
-
   const {
     register,
     handleSubmit,
@@ -43,22 +34,9 @@ const Login = (): JSX.Element => {
     reValidateMode: "onSubmit",
   });
 
+  // hooks
   const router = useRouter();
-
-  const handleLogin = async (data: FormData) => {
-    try {
-      const res = await loginUser(data);
-      dispatch(setUser(res.data.data.user));
-
-      storeToken(res.data.data.token);
-      dispatch(setToken(res.data.data.token));
-
-      router.push("/");
-    } catch (error) {
-      const fields_errors = (error as AxiosError).response?.data as {};
-      setFormErrors(fields_errors);
-    }
-  };
+  const [handleLogin] = useHandleLogin({ setFormErrors });
 
   return (
     <section className="md:flex">

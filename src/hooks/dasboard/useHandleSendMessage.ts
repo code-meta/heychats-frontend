@@ -1,7 +1,5 @@
-import { allMessages } from "#/api";
 import { WS_URL } from "#/config";
 import { RootState } from "#/store";
-import { AxiosError } from "axios";
 import { useSelector } from "react-redux";
 
 interface ITypes {
