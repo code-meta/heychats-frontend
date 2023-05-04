@@ -1,4 +1,3 @@
-import { createConnection, findConnection } from "#/api";
 import {
   ButtonPrimarySmall,
   ButtonSuccessSmall,
@@ -6,9 +5,9 @@ import {
   TextInputSearch,
 } from "#/components";
 import { IMAGE_URL } from "#/config";
+import { useHandleCreateConnection, useHandleFindConnection } from "#/hooks";
 import { withAuth } from "#/services";
 import { IconnectionData } from "#/types";
-import { AxiosError } from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -19,43 +18,17 @@ const AddNewChats = () => {
   const [connection, setConnection] = useState<IconnectionData | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
-  const handleFindConnection = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchId === "") return;
+  const [handleFindConnection] = useHandleFindConnection({
+    searchId,
+    setConnection,
+    setIsConnected,
+    setIdError,
+  });
 
-    try {
-      const res = await findConnection({ connection_id: searchId });
-      setConnection(res.data.data.connection);
-      setIsConnected(res.data.data.connected);
-      setIdError(null);
-    } catch (error) {
-      setConnection(null);
-      setIsConnected(false);
-
-      const status = (error as AxiosError).response?.status;
-      if (status === 404 || status === 422) {
-        const errors = (error as AxiosError).response?.data as {
-          error: { message: string };
-        };
-
-        setIdError(errors.error.message);
-      }
-    }
-  };
-
-  const handleCreateConnection = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    try {
-      if (connection) {
-        const res = await createConnection({ user2_id: connection.id });
-        console.log(res.data);
-        setIsConnected(true);
-      }
-    } catch (error) {
-      console.log((error as AxiosError).response?.data);
-    }
-  };
+  const [handleCreateConnection] = useHandleCreateConnection({
+    connection,
+    setIsConnected,
+  });
 
   return (
     <>
