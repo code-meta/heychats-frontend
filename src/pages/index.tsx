@@ -18,12 +18,14 @@ import {
   useScrollToBottom,
   useWsListeners,
   useHandleSendMessage,
+  useHandleImageSend,
 } from "#/hooks";
 
 const Dashboard = () => {
   // states
   const chats = useSelector((state: RootState) => state.chats.chats);
   const [ws, setWs] = useState<WebSocket | null>(null);
+  const [wsImage, setWsImage] = useState<WebSocket | null>(null);
   const [room_id, setRoomId] = useState<string | null>(null);
   const [OPEN, setOPEN] = useState(false);
   const [textMessage, setTextMessage] = useState("");
@@ -34,13 +36,15 @@ const Dashboard = () => {
 
   const [noChats] = useGetChats();
 
-  useWsListeners({ ws, setMessages });
+  useWsListeners({ ws, wsImage, setMessages });
 
   useScrollToBottom({ element: chatBox, messages });
 
   const [handleChatRoom] = useHandleChatRoom({
     ws,
     setWs,
+    wsImage,
+    setWsImage,
     setMessages,
     setOPEN,
     setRoomId,
@@ -51,6 +55,12 @@ const Dashboard = () => {
     setWs,
     textMessage,
     setTextMessage,
+    room_id,
+  });
+
+  const [handleImageSend] = useHandleImageSend({
+    wsImage,
+    setWsImage,
     room_id,
   });
 
@@ -96,6 +106,7 @@ const Dashboard = () => {
                   handleSendMessage={handleSendMessage}
                   textMessage={textMessage}
                   setTextMessage={setTextMessage}
+                  handleImageSend={handleImageSend}
                 />
               </div>
             )}

@@ -57,7 +57,9 @@ export interface IGetMessages {
 export interface IMessage {
   id: string;
   sender: string;
-  message: string;
+  message?: string;
+  image?: string;
+  type: "text" | "image";
   room_id: number;
   created_at: string;
 }

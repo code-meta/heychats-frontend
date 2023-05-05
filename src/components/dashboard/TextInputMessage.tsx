@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import InsertEmoticonOutlinedIcon from "@mui/icons-material/InsertEmoticonOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import { InputProps } from "#/types";
+import { WS_URL } from "#/config";
+
+interface CustomInputProps extends InputProps {
+  handleImageSend: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 const TextInputMessage = ({
   labelText,
   inputId,
+  handleImageSend,
   ...rest
-}: InputProps): JSX.Element => {
+}: CustomInputProps): JSX.Element => {
   return (
     <div className="flex flex-col gap-2 relative">
       <input
@@ -17,8 +23,19 @@ const TextInputMessage = ({
       />
       <div className="absolute top-0 right-0 h-full flex items-center justify-center gap-2 pr-2">
         <InsertEmoticonOutlinedIcon className="text-primary" />
-        <ImageOutlinedIcon className="text-primary" />
+        <label htmlFor="send-images">
+          <ImageOutlinedIcon className="text-primary" />
+        </label>
       </div>
+
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        id="send-images"
+        hidden
+        onChange={handleImageSend}
+      />
     </div>
   );
 };

@@ -7,7 +7,7 @@ interface IPropTypes {
   id: string;
   sender: string;
   created_at: string;
-  message: string;
+  message?: string;
 }
 
 const TextMessageCard = ({ id, sender, created_at, message }: IPropTypes) => {

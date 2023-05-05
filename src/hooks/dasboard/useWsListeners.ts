@@ -2,10 +2,11 @@ import { useEffect } from "react";
 
 interface ITypes {
   ws: WebSocket | null;
+  wsImage: WebSocket | null;
   setMessages: Function;
 }
 
-const useWsListeners = ({ ws, setMessages }: ITypes) => {
+const useWsListeners = ({ ws, wsImage, setMessages }: ITypes) => {
   useEffect(() => {
     if (ws) {
       ws.addEventListener("open", (e) => {
@@ -21,7 +22,19 @@ const useWsListeners = ({ ws, setMessages }: ITypes) => {
         setMessages((prev: []) => [...prev, data]);
       });
     }
-  }, [ws]);
+
+    if (wsImage) {
+      wsImage.addEventListener("close", (e) => {
+        console.log("ws image disconnected..");
+      });
+
+      wsImage.addEventListener("message", (e) => {
+        const data = JSON.parse(e.data).message_content;
+        setMessages((prev: []) => [...prev, data]);
+        console.log("ws image message...");
+      });
+    }
+  }, [ws, wsImage]);
 
   return true;
 };

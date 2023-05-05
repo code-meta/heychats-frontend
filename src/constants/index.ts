@@ -19,3 +19,5 @@ export const topNavLinks = [
     Icon: SettingsOutlinedIcon,
   },
 ];
+
+export const CHUNK_SIZE = 1024;

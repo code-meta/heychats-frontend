@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 interface ITypes {
   ws: WebSocket | null;
   setWs: Function;
+  setWsImage: Function;
+  wsImage: WebSocket | null;
   setOPEN: Function;
   setRoomId: Function;
   setMessages: Function;
@@ -15,6 +17,8 @@ interface ITypes {
 const useHandleChatRoom = ({
   ws,
   setWs,
+  wsImage,
+  setWsImage,
   setOPEN,
   setRoomId,
   setMessages,
@@ -27,11 +31,18 @@ const useHandleChatRoom = ({
   ) => {
     const socket = new WebSocket(`${WS_URL}/chat/${user.id}/${room_id}/`);
     setWs(socket);
+    setWsImage(
+      new WebSocket(`${WS_URL}/chat-image-receiver/${user.id}/${room_id}/`)
+    );
     setOPEN(true);
     setRoomId(room_id);
 
     if (ws) {
       ws.close();
+    }
+
+    if (wsImage) {
+      wsImage.close();
     }
 
     try {
