@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import InsertEmoticonOutlinedIcon from "@mui/icons-material/InsertEmoticonOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import { InputProps } from "#/types";
-import { WS_URL } from "#/config";
 
 interface CustomInputProps extends InputProps {
   handleImageSend: (e: React.ChangeEvent<HTMLInputElement>) => void;

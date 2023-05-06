@@ -1,11 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import { IMAGE_URL } from "#/config";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 
 interface IPropTypes {
   username: string;
   profile: string | null;
   room_id: string;
+  total_messages: number;
+  lastMessage: { message: string; type: "text" | "image" };
   activeRoom: string | null;
   handler: Function;
 }
@@ -14,6 +17,7 @@ const ChatCard = ({
   profile,
   username,
   room_id,
+  lastMessage,
   activeRoom,
   handler,
 }: IPropTypes): JSX.Element => {
@@ -41,9 +45,25 @@ const ChatCard = ({
           </div>
         )}
 
-        <h4 className="text-base-content font-medium text-lg select-none">
-          {username}
-        </h4>
+        <div>
+          <h4 className="text-base-content font-medium text-lg select-none">
+            {username}
+          </h4>
+          {lastMessage.type === "text" && (
+            <p className="text-slate-400 text-sm font-medium">
+              {lastMessage.message.length > 20
+                ? `${lastMessage.message.slice(0, 20)}...`
+                : lastMessage.message}
+            </p>
+          )}
+
+          {lastMessage.type === "image" && (
+            <div className="flex items-center gap-1">
+              <ImageOutlinedIcon className="text-slate-400" fontSize="small"/>
+              <span className="text-slate-400 text-sm font-medium">Photo</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

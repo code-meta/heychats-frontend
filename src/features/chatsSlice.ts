@@ -6,6 +6,8 @@ export interface IChat {
   username: string;
   profile: string;
   room_id: string;
+  total_messages: number;
+  lastMessage: { message: string; type: "text" | "image" };
 }
 
 export interface ChatsState {
