@@ -38,7 +38,7 @@ const ChatCard = ({
             className="w-[46px] h-[46px] rounded-full object-cover"
           />
         ) : (
-          <div className="w-[46px] h-[46px] rounded-full bg-base-100 flex items-center justify-center">
+          <div className="w-[46px] h-[46px] rounded-full bg-base-content text-base-100 flex items-center justify-center">
             <h4 className="font-bold text-lg uppercase select-none">
               {username.slice(0, 2)}
             </h4>
@@ -59,7 +59,7 @@ const ChatCard = ({
 
           {lastMessage.type === "image" && (
             <div className="flex items-center gap-1">
-              <ImageOutlinedIcon className="text-slate-400" fontSize="small"/>
+              <ImageOutlinedIcon className="text-slate-400" fontSize="small" />
               <span className="text-slate-400 text-sm font-medium">Photo</span>
             </div>
           )}

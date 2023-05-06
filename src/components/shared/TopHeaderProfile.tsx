@@ -22,8 +22,8 @@ const TopHeaderProfile = () => {
           />
         </div>
       ) : (
-        <div className="rounded-full w-[46px] h-[46px] p-1 bg-base-100 flex items-center justify-center">
-          <h4 className="uppercase font-bold text-lg text-base-content select-none">
+        <div className="rounded-full w-[46px] h-[46px] p-1 bg-base-content flex items-center justify-center">
+          <h4 className="uppercase font-bold text-lg text-base-100 select-none">
             {user.username?.slice(0, 2)}
           </h4>
         </div>
