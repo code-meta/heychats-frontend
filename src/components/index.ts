@@ -14,6 +14,7 @@ export { default as TextInputSearch } from "./shared/TextInputSearch";
 export { default as ButtonPrimarySmall } from "./shared/ButtonPrimarySmall";
 export { default as ButtonSuccessSmall } from "./shared/ButtonSuccessSmall";
 export { default as BrandMessage } from "./shared/BrandMessage";
+export { default as TopHeaderProfileMenu } from "./shared/TopHeaderProfileMenu";
 export { default as NoChats } from "./dashboard/NoChats";
 export { default as ChatCard } from "./dashboard/ChatCard";
 export { default as TextInputMessage } from "./dashboard/TextInputMessage";

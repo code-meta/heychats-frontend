@@ -84,3 +84,7 @@ body {
 .chat_room::-webkit-scrollbar-thumb {
   background-color: var(--base-200);
 }
+
+.profile_button:hover .profile_menu {
+  display: block;
+}

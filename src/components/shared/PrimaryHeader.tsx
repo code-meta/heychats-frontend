@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PrimaryLogo from "./PrimaryLogo";
 import PrimaryTopNav from "./PrimaryTopNav";
 import TopHeaderProfile from "./TopHeaderProfile";

@@ -7,6 +7,7 @@ export interface UserInfoState {
   username: string | null;
   email: string | null;
   profile: string | null;
+  connection_id: string | null;
 }
 
 const initialState: UserInfoState = {
@@ -14,6 +15,7 @@ const initialState: UserInfoState = {
   username: null,
   email: null,
   profile: null,
+  connection_id: null,
 };
 
 export const userInfoSlice = createSlice({
@@ -25,6 +27,7 @@ export const userInfoSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.profile = action.payload.profile;
+      state.connection_id = action.payload.connection_id;
     },
   },
 });
