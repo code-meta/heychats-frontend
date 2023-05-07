@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TextInputMessage from "./TextInputMessage";
 
 interface IPropTypes {
@@ -32,6 +32,8 @@ const ChatForm = ({
             }
             autoFocus
             handleImageSend={handleImageSend}
+            setTextMessage={setTextMessage}
+            textMessage={textMessage}
           />
         </form>
       </div>

@@ -88,3 +88,16 @@ body {
 .profile_button:hover .profile_menu {
   display: block;
 }
+
+::-webkit-scrollbar {
+  display: block;
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--base-200);
+}
