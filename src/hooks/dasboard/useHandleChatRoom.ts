@@ -12,6 +12,7 @@ interface ITypes {
   setOPEN: Function;
   setRoomId: Function;
   setMessages: Function;
+  setNewRoomId: Function;
 }
 
 const useHandleChatRoom = ({
@@ -22,6 +23,7 @@ const useHandleChatRoom = ({
   setOPEN,
   setRoomId,
   setMessages,
+  setNewRoomId,
 }: ITypes) => {
   const user = useSelector((state: RootState) => state.userInfo);
 
@@ -52,6 +54,8 @@ const useHandleChatRoom = ({
       setMessages([]);
       console.log((error as AxiosError).response?.data);
     }
+
+    setNewRoomId(room_id);
   };
 
   return [handleChatRoom];

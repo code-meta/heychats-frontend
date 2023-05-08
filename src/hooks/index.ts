@@ -6,6 +6,7 @@ export { default as useHandleSendMessage } from "./dasboard/useHandleSendMessage
 export { default as useHandleImageSend } from "./dasboard/useHandleImageSend";
 export { default as useLoadEmojis } from "./dasboard/useLoadEmojis";
 export { default as useHandleEmojiInsert } from "./dasboard/useHandleEmojiInsert";
+export { default as useResetForm } from "./dasboard/useResetForm";
 export { default as useHandleCreateAccount } from "./auth/useHandleCreateAccount";
 export { default as useHandleUploadProfile } from "./auth/useHandleUploadProfile";
 export { default as useHandleLogin } from "./auth/useHandleLogin";

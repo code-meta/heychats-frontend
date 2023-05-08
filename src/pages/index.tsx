@@ -30,6 +30,7 @@ const Dashboard = () => {
   const [OPEN, setOPEN] = useState(false);
   const [textMessage, setTextMessage] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [newRoomId, setNewRoomId] = useState<number | null>(null);
 
   // hooks
   const chatBox = useRef<HTMLDivElement>(null);
@@ -48,6 +49,7 @@ const Dashboard = () => {
     setMessages,
     setOPEN,
     setRoomId,
+    setNewRoomId,
   });
 
   const [handleSendMessage] = useHandleSendMessage({
@@ -107,6 +109,7 @@ const Dashboard = () => {
                   textMessage={textMessage}
                   setTextMessage={setTextMessage}
                   handleImageSend={handleImageSend}
+                  newRoomId={newRoomId}
                 />
               </div>
             )}

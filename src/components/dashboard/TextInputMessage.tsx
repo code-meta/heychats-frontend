@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import InsertEmoticonOutlinedIcon from "@mui/icons-material/InsertEmoticonOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import { InputProps } from "#/types";
-import axios from "axios";
-import { useHandleEmojiInsert, useLoadEmojis } from "#/hooks";
+import { useHandleEmojiInsert, useLoadEmojis, useResetForm } from "#/hooks";
 
 interface CustomInputProps extends InputProps {
   handleImageSend: (e: React.ChangeEvent<HTMLInputElement>) => void;
   textMessage: string;
   setTextMessage: Function;
+  newRoomId: number | null;
 }
 
 interface IEmoji {
@@ -25,6 +25,7 @@ const TextInputMessage = ({
   handleImageSend,
   textMessage,
   setTextMessage,
+  newRoomId,
   ...rest
 }: CustomInputProps): JSX.Element => {
   const [emojis, setEmojis] = useState<IEmoji[]>([]);
@@ -41,6 +42,8 @@ const TextInputMessage = ({
     setTextMessage,
     textMessage,
   });
+
+  useResetForm({ newRoomId, setShowEmojis, setTextMessage });
 
   return (
     <div className="flex flex-col gap-2 relative bg-neutral rounded-lg">
