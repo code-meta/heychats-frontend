@@ -1,5 +1,7 @@
 This is the frontend of the heychats web app. [app preview image](https://raw.githubusercontent.com/CodeStatute/heychats-frontend/main/public/heychats-preview.png) 
 
+See [the figma UI design](https://www.figma.com/file/oxGnZmWWayt2Rn9pfbyTky/heychats?type=design&node-id=4-8)  
+
 ## Getting Started
 
 First, install all dependencies:
