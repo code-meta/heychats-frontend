@@ -4,12 +4,22 @@ interface ITypes {
   setTextMessage: Function;
   newRoomId: number | null;
   setShowEmojis: Function;
+  setSearch: Function;
+  setFilteredEmojis: Function;
 }
 
-const useResetForm = ({ setShowEmojis, setTextMessage, newRoomId }: ITypes) => {
+const useResetForm = ({
+  setShowEmojis,
+  setTextMessage,
+  newRoomId,
+  setFilteredEmojis,
+  setSearch,
+}: ITypes) => {
   useEffect(() => {
     setShowEmojis(false);
     setTextMessage("");
+    setSearch("");
+    setFilteredEmojis([]);
   }, [newRoomId]);
 };
 

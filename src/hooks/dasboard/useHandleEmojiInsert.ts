@@ -22,7 +22,7 @@ const useHandleEmojiInsert = ({
     if (lastCaretPos >= 0) {
       const leftText = textMessage.slice(0, lastCaretPos);
       const rightText = textMessage.slice(lastCaretPos);
-      const emojiChar = ` ${emoji} `;
+      const emojiChar = ` ${emoji} `.trim();
       const msg = `${leftText}${emojiChar}${rightText}`;
       setTextMessage(msg);
 

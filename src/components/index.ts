@@ -22,6 +22,7 @@ export { default as ChatBoard } from "./dashboard/ChatBoard";
 export { default as TextMessageCard } from "./dashboard/TextMessageCard";
 export { default as ImageMessageCard } from "./dashboard/ImageMessageCard";
 export { default as ChatForm } from "./dashboard/ChatForm";
+export { default as EmojiCard } from "./dashboard/EmojiCard";
 export { default as UploadProfile } from "./auth/UploadProfileForm";
 export { default as CreateAccountForm } from "./auth/CreateAccountForm";
 export { default as ConnectionCard } from "./user/ConnectionCard";
