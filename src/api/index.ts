@@ -124,3 +124,16 @@ export const allMessages = async (
     headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
   });
 };
+
+// ! upload a profile picture for an user
+export const updateUserProfile = async (data: {
+  username: string;
+  about: string;
+}): Promise<AxiosResponse> => {
+  const res = await api_private.put("/auth/update-user-profile/", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access")}`,
+    },
+  });
+  return res;
+};

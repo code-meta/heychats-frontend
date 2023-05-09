@@ -2,19 +2,24 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IMAGE_URL } from "#/config";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "#/store";
 import ButtonPrimary from "../shared/ButtonPrimary";
+import { updateUserProfile } from "#/api";
+import { AxiosError } from "axios";
+import { setUser } from "#/features/userInfoSlice";
+import { useHandleUserProfileUpdate } from "#/hooks";
 
 const EditProfileForm = () => {
-  const user = useSelector((state: RootState) => state.userInfo);
-
   const [username, setUsername] = useState("");
   const [about, setAbout] = useState("");
 
-  useEffect(() => {
-    user.username && setUsername(user.username);
-  }, [user]);
+  const [handleUserProfileUpdate] = useHandleUserProfileUpdate({
+    username,
+    about,
+    setUsername,
+    setAbout,
+  });
 
   return (
     <div className="mt-[3rem]">
@@ -22,7 +27,10 @@ const EditProfileForm = () => {
         Edit Profile
       </h2>
 
-      <form className="md:max-w-[300px] w-full mt-[1.5rem] flex flex-col gap-4">
+      <form
+        className="md:max-w-[300px] w-full mt-[1.5rem] flex flex-col gap-4"
+        onSubmit={handleUserProfileUpdate}
+      >
         <div className="flex flex-col gap-2">
           <label
             htmlFor="username"
@@ -56,7 +64,7 @@ const EditProfileForm = () => {
         </div>
 
         <div className="w-24">
-          <ButtonPrimary text="Save" />
+          <ButtonPrimary text="Save" type="submit" />
         </div>
       </form>
     </div>
