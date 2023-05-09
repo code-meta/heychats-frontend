@@ -26,3 +26,6 @@ export { default as EmojiCard } from "./dashboard/EmojiCard";
 export { default as UploadProfile } from "./auth/UploadProfileForm";
 export { default as CreateAccountForm } from "./auth/CreateAccountForm";
 export { default as ConnectionCard } from "./user/ConnectionCard";
+export { default as TopProfileForm } from "./settings/TopProfileForm";
+export { default as EditProfileForm } from "./settings/EditProfileForm";
+export { default as Account } from "./settings/Account";

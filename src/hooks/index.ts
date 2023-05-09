@@ -13,3 +13,4 @@ export { default as useHandleUploadProfile } from "./auth/useHandleUploadProfile
 export { default as useHandleLogin } from "./auth/useHandleLogin";
 export { default as useHandleFindConnection } from "./user/useHandleFindConnection";
 export { default as useHandleCreateConnection } from "./user/useHandleCreateConnection";
+export { default as useHandleProfileUpload } from "./settings/useHandleProfileUpload";

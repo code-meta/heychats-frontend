@@ -18,7 +18,7 @@ const TopHeaderProfile = () => {
             alt="profile-pic"
             width={46}
             height={46}
-            className="rounded-full w-[46px] h-[46px]"
+            className="rounded-full w-[46px] h-[46px] object-cover"
           />
         </div>
       ) : (

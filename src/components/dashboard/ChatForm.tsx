@@ -98,7 +98,6 @@ const ChatForm = ({
               onChange={handleEmojiSearch}
               value={search}
               required={false}
-              onSubmit={(e) => e.preventDefault()}
               className="h-[40px] bg-input-message placeholder:text-input-message-placeholder text-input-message-content outline-0 px-2 border-b-2 border-input-message-focus w-full mb-2"
             />
 
