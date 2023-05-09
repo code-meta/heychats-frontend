@@ -29,3 +29,4 @@ export { default as ConnectionCard } from "./user/ConnectionCard";
 export { default as TopProfileForm } from "./settings/TopProfileForm";
 export { default as EditProfileForm } from "./settings/EditProfileForm";
 export { default as Account } from "./settings/Account";
+export { default as DeleteAccountModal } from "./settings/DeleteAccountModal";

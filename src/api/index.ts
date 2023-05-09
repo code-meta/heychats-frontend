@@ -125,12 +125,22 @@ export const allMessages = async (
   });
 };
 
-// ! upload a profile picture for an user
+// ! upload user profile
 export const updateUserProfile = async (data: {
   username: string;
   about: string;
 }): Promise<AxiosResponse> => {
   const res = await api_private.put("/auth/update-user-profile/", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access")}`,
+    },
+  });
+  return res;
+};
+
+// ! delete user accounts
+export const deleteUserAccount = async (): Promise<AxiosResponse> => {
+  const res = await api_private.delete("/auth/delete-user/", {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access")}`,
     },

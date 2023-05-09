@@ -42,7 +42,7 @@ const UploadProfileForm = ({
         <ButtonSecondary
           text="Skip for now"
           type="button"
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.push("/")}
         />
       </div>
     </form>

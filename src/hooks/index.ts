@@ -15,3 +15,4 @@ export { default as useHandleFindConnection } from "./user/useHandleFindConnecti
 export { default as useHandleCreateConnection } from "./user/useHandleCreateConnection";
 export { default as useHandleProfileUpload } from "./settings/useHandleProfileUpload";
 export { default as useHandleUserProfileUpdate } from "./settings/useHandleUserProfileUpdate";
+export { default as useHandleDeleteUserActions } from "./settings/useHandleDeleteUserActions";
