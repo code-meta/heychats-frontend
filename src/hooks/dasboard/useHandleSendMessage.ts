@@ -21,7 +21,6 @@ const useHandleSendMessage = ({
 
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-console.log('fuck')
     if (textMessage.trim() === "") return;
 
     if (ws && ws.readyState === 1) {

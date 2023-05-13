@@ -20,8 +20,14 @@ const useHandleEmojiInsert = ({
     emoji: string
   ) => {
     if (lastCaretPos >= 0) {
-      const leftText = textMessage.slice(0, lastCaretPos);
-      const rightText = textMessage.slice(lastCaretPos);
+      let leftText = textMessage.slice(0, lastCaretPos);
+      let rightText = textMessage.slice(lastCaretPos);
+
+      if (rightText.length === 0 || rightText.length === 2) {
+        leftText = textMessage.slice(0, lastCaretPos + 2);
+        rightText = textMessage.slice(lastCaretPos + 2);
+      }
+
       const emojiChar = ` ${emoji} `.trim();
       const msg = `${leftText}${emojiChar}${rightText}`;
       setTextMessage(msg);
@@ -31,7 +37,12 @@ const useHandleEmojiInsert = ({
 
         let leftLength = leftText.length + emojiChar.length;
 
-        element.setSelectionRange(leftLength, leftLength, "forward");
+        if (rightText.length === 0 || rightText.length === 2) {
+          leftLength = leftText.length + 2 + emojiChar.length;
+          element.setSelectionRange(leftLength, leftLength, "forward");
+        } else {
+          element.setSelectionRange(leftLength, leftLength, "forward");
+        }
 
         element.selectionEnd && setLastCaretPos(element.selectionEnd);
       }
