@@ -5,8 +5,18 @@ import { RootState } from "#/store";
 import { IMAGE_URL } from "#/config";
 import TopHeaderProfileMenu from "./TopHeaderProfileMenu";
 
+interface ImageLoaderParams {
+  src: string;
+  width: number;
+  quality?: number;
+}
+
 const TopHeaderProfile = () => {
   const user = useSelector((state: RootState) => state.userInfo);
+
+  const imageLoader = ({ src, width, quality }: ImageLoaderParams): string => {
+    return `${IMAGE_URL}/${src}?w=${width}&q=${quality || 75}`;
+  };
 
   return (
     <div className="profile_button relative">
@@ -14,7 +24,8 @@ const TopHeaderProfile = () => {
       {user.profile ? (
         <div>
           <Image
-            src={`${IMAGE_URL}${user.profile}`}
+            loader={imageLoader}
+            src={`${user.profile}`}
             alt="profile-pic"
             width={46}
             height={46}

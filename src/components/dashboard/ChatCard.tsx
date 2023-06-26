@@ -13,6 +13,12 @@ interface IPropTypes {
   handler: Function;
 }
 
+interface ImageLoaderParams {
+  src: string;
+  width: number;
+  quality?: number;
+}
+
 const ChatCard = ({
   profile,
   username,
@@ -21,6 +27,9 @@ const ChatCard = ({
   activeRoom,
   handler,
 }: IPropTypes): JSX.Element => {
+  const imageLoader = ({ src, width, quality }: ImageLoaderParams): string => {
+    return `${IMAGE_URL}/${src}?w=${width}&q=${quality || 75}`;
+  };
   return (
     <div
       className={`py-2 hover:bg-neutral px-[1rem] select-none ${
@@ -31,7 +40,8 @@ const ChatCard = ({
       <div className="flex items-center gap-4">
         {profile ? (
           <Image
-            src={`${IMAGE_URL}${profile}`}
+            loader={imageLoader}
+            src={`${profile}`}
             alt="profile-pic"
             width={46}
             height={46}

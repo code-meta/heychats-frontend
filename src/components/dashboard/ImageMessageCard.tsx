@@ -15,6 +15,12 @@ interface IPropTypes {
   chatBox: React.RefObject<HTMLDivElement>;
 }
 
+interface ImageLoaderParams {
+  src: string;
+  width: number;
+  quality?: number;
+}
+
 const ImageMessageCard = ({ message, chatBox }: IPropTypes) => {
   const user = useSelector((state: RootState) => state.userInfo);
 
@@ -22,6 +28,10 @@ const ImageMessageCard = ({ message, chatBox }: IPropTypes) => {
     if (chatBox.current) {
       chatBox.current.scrollTop = chatBox.current.scrollHeight;
     }
+  };
+
+  const imageLoader = ({ src, width, quality }: ImageLoaderParams): string => {
+    return `${IMAGE_URL}/${src}?w=${width}&q=${quality || 75}`;
   };
 
   return (
@@ -42,11 +52,12 @@ const ImageMessageCard = ({ message, chatBox }: IPropTypes) => {
         className={`bg-card-message py-1 px-1 mt-[6px] min-w-[280px] min-h-[100px]`}
       >
         <Image
-          src={`${IMAGE_URL}${message.image}`}
+          src={`${message.image}`}
+          loader={imageLoader}
           alt="image"
           width={280}
           height={100}
-          className="w-auto h-auto"
+          className="w-[280px] h-auto"
           onLoad={handleScroll}
         />
       </div>

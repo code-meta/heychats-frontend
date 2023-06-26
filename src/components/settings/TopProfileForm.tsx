@@ -6,17 +6,28 @@ import { useSelector } from "react-redux";
 import { RootState } from "#/store";
 import { useHandleProfileUpload } from "#/hooks";
 
+interface ImageLoaderParams {
+  src: string;
+  width: number;
+  quality?: number;
+}
+
 const TopProfileForm = () => {
   const user = useSelector((state: RootState) => state.userInfo);
 
   const [handleProfilePreview] = useHandleProfileUpload();
+
+  const imageLoader = ({ src, width, quality }: ImageLoaderParams): string => {
+    return `${IMAGE_URL}/${src}?w=${width}&q=${quality || 75}`;
+  };
 
   return (
     <div className="mt-[3rem] flex flex-col gap-4">
       <div className="w-[100px] h-[100px] flex items-center justify-center border-[3px] border-primary rounded-full relative">
         {user.profile && (
           <Image
-            src={`${IMAGE_URL}${user.profile}`}
+            loader={imageLoader}
+            src={`${user.profile}`}
             alt="profile"
             width={100}
             height={100}
